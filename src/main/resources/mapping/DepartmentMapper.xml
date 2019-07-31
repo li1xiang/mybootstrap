@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.china.mybootstrap.dao.DepartmentMapper">
+  <resultMap id="BaseResultMap" type="com.china.mybootstrap.entity.Department">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="departmentName" jdbcType="VARCHAR" property="departmentname" />
+    <result column="USR_NAME" jdbcType="VARCHAR" property="usrName" />
+    <result column="CTR_TM" jdbcType="TIMESTAMP" property="ctrTm" />
+    <result column="CTR_USR_ID" jdbcType="INTEGER" property="ctrUsrId" />
+    <result column="LNG_NAME" jdbcType="VARCHAR" property="lngName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, departmentName, USR_NAME, CTR_TM, CTR_USR_ID, LNG_NAME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from department
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from department
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.china.mybootstrap.entity.Department">
+    insert into department (id, departmentName, USR_NAME, 
+      CTR_TM, CTR_USR_ID, LNG_NAME
+      )
+    values (#{id,jdbcType=INTEGER}, #{departmentname,jdbcType=VARCHAR}, #{usrName,jdbcType=VARCHAR}, 
+      #{ctrTm,jdbcType=TIMESTAMP}, #{ctrUsrId,jdbcType=INTEGER}, #{lngName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.china.mybootstrap.entity.Department">
+    insert into department
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="departmentname != null">
+        departmentName,
+      </if>
+      <if test="usrName != null">
+        USR_NAME,
+      </if>
+      <if test="ctrTm != null">
+        CTR_TM,
+      </if>
+      <if test="ctrUsrId != null">
+        CTR_USR_ID,
+      </if>
+      <if test="lngName != null">
+        LNG_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="departmentname != null">
+        #{departmentname,jdbcType=VARCHAR},
+      </if>
+      <if test="usrName != null">
+        #{usrName,jdbcType=VARCHAR},
+      </if>
+      <if test="ctrTm != null">
+        #{ctrTm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ctrUsrId != null">
+        #{ctrUsrId,jdbcType=INTEGER},
+      </if>
+      <if test="lngName != null">
+        #{lngName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.china.mybootstrap.entity.Department">
+    update department
+    <set>
+      <if test="departmentname != null">
+        departmentName = #{departmentname,jdbcType=VARCHAR},
+      </if>
+      <if test="usrName != null">
+        USR_NAME = #{usrName,jdbcType=VARCHAR},
+      </if>
+      <if test="ctrTm != null">
+        CTR_TM = #{ctrTm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ctrUsrId != null">
+        CTR_USR_ID = #{ctrUsrId,jdbcType=INTEGER},
+      </if>
+      <if test="lngName != null">
+        LNG_NAME = #{lngName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.china.mybootstrap.entity.Department">
+    update department
+    set departmentName = #{departmentname,jdbcType=VARCHAR},
+      USR_NAME = #{usrName,jdbcType=VARCHAR},
+      CTR_TM = #{ctrTm,jdbcType=TIMESTAMP},
+      CTR_USR_ID = #{ctrUsrId,jdbcType=INTEGER},
+      LNG_NAME = #{lngName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectDepart" parameterType="com.china.mybootstrap.entity.Department" resultType="Integer">
+    select  COUNT(1) from  department where 1=1
+    <if test="usrName !=null">
+        and    USR_NAME = #{usrName,jdbcType=VARCHAR}
+    </if>
+    <if test="departmentname != null">
+     and departmentName = #{departmentname,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.china.mybootstrap.dao.UsrMapper">
+  <resultMap id="BaseResultMap" type="com.china.mybootstrap.entity.Usr">
+    <id column="usr_id" jdbcType="INTEGER" property="usrId" />
+    <result column="lgn_id_sdsc" jdbcType="VARCHAR" property="lgnIdSdsc" />
+    <result column="usr_tp_enum" jdbcType="VARCHAR" property="usrTpEnum" />
+    <result column="usr_st_enum" jdbcType="VARCHAR" property="usrStEnum" />
+    <result column="pswd_desc" jdbcType="VARCHAR" property="pswdDesc" />
+    <result column="crt_tmst" jdbcType="TIMESTAMP" property="crtTmst" />
+    <result column="crt_usr_id" jdbcType="INTEGER" property="crtUsrId" />
+    <result column="upd_tmst" jdbcType="TIMESTAMP" property="updTmst" />
+    <result column="upd_usr_id" jdbcType="INTEGER" property="updUsrId" />
+    <result column="tel_sdsc" jdbcType="VARCHAR" property="telSdsc" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    usr_id, lgn_id_sdsc, usr_tp_enum, usr_st_enum, pswd_desc, crt_tmst, crt_usr_id, upd_tmst, 
+    upd_usr_id, tel_sdsc
+  </sql>
+  <select id="selectByExample" parameterType="com.china.mybootstrap.entity.UsrExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from usr
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from usr
+    where usr_id = #{usrId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from usr
+    where usr_id = #{usrId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.china.mybootstrap.entity.UsrExample">
+    delete from usr
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.china.mybootstrap.entity.Usr">
+    insert into usr (usr_id, lgn_id_sdsc, usr_tp_enum, 
+      usr_st_enum, pswd_desc, crt_tmst, 
+      crt_usr_id, upd_tmst, upd_usr_id, 
+      tel_sdsc)
+    values (#{usrId,jdbcType=INTEGER}, #{lgnIdSdsc,jdbcType=VARCHAR}, #{usrTpEnum,jdbcType=VARCHAR}, 
+      #{usrStEnum,jdbcType=VARCHAR}, #{pswdDesc,jdbcType=VARCHAR}, #{crtTmst,jdbcType=TIMESTAMP}, 
+      #{crtUsrId,jdbcType=INTEGER}, #{updTmst,jdbcType=TIMESTAMP}, #{updUsrId,jdbcType=INTEGER}, 
+      #{telSdsc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.china.mybootstrap.entity.Usr">
+    insert into usr
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="usrId != null">
+        usr_id,
+      </if>
+      <if test="lgnIdSdsc != null">
+        lgn_id_sdsc,
+      </if>
+      <if test="usrTpEnum != null">
+        usr_tp_enum,
+      </if>
+      <if test="usrStEnum != null">
+        usr_st_enum,
+      </if>
+      <if test="pswdDesc != null">
+        pswd_desc,
+      </if>
+      <if test="crtTmst != null">
+        crt_tmst,
+      </if>
+      <if test="crtUsrId != null">
+        crt_usr_id,
+      </if>
+      <if test="updTmst != null">
+        upd_tmst,
+      </if>
+      <if test="updUsrId != null">
+        upd_usr_id,
+      </if>
+      <if test="telSdsc != null">
+        tel_sdsc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="usrId != null">
+        #{usrId,jdbcType=INTEGER},
+      </if>
+      <if test="lgnIdSdsc != null">
+        #{lgnIdSdsc,jdbcType=VARCHAR},
+      </if>
+      <if test="usrTpEnum != null">
+        #{usrTpEnum,jdbcType=VARCHAR},
+      </if>
+      <if test="usrStEnum != null">
+        #{usrStEnum,jdbcType=VARCHAR},
+      </if>
+      <if test="pswdDesc != null">
+        #{pswdDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTmst != null">
+        #{crtTmst,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUsrId != null">
+        #{crtUsrId,jdbcType=INTEGER},
+      </if>
+      <if test="updTmst != null">
+        #{updTmst,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updUsrId != null">
+        #{updUsrId,jdbcType=INTEGER},
+      </if>
+      <if test="telSdsc != null">
+        #{telSdsc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.china.mybootstrap.entity.UsrExample" resultType="java.lang.Long">
+    select count(*) from usr
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update usr
+    <set>
+      <if test="record.usrId != null">
+        usr_id = #{record.usrId,jdbcType=INTEGER},
+      </if>
+      <if test="record.lgnIdSdsc != null">
+        lgn_id_sdsc = #{record.lgnIdSdsc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrTpEnum != null">
+        usr_tp_enum = #{record.usrTpEnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrStEnum != null">
+        usr_st_enum = #{record.usrStEnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pswdDesc != null">
+        pswd_desc = #{record.pswdDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtTmst != null">
+        crt_tmst = #{record.crtTmst,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtUsrId != null">
+        crt_usr_id = #{record.crtUsrId,jdbcType=INTEGER},
+      </if>
+      <if test="record.updTmst != null">
+        upd_tmst = #{record.updTmst,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updUsrId != null">
+        upd_usr_id = #{record.updUsrId,jdbcType=INTEGER},
+      </if>
+      <if test="record.telSdsc != null">
+        tel_sdsc = #{record.telSdsc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update usr
+    set usr_id = #{record.usrId,jdbcType=INTEGER},
+      lgn_id_sdsc = #{record.lgnIdSdsc,jdbcType=VARCHAR},
+      usr_tp_enum = #{record.usrTpEnum,jdbcType=VARCHAR},
+      usr_st_enum = #{record.usrStEnum,jdbcType=VARCHAR},
+      pswd_desc = #{record.pswdDesc,jdbcType=VARCHAR},
+      crt_tmst = #{record.crtTmst,jdbcType=TIMESTAMP},
+      crt_usr_id = #{record.crtUsrId,jdbcType=INTEGER},
+      upd_tmst = #{record.updTmst,jdbcType=TIMESTAMP},
+      upd_usr_id = #{record.updUsrId,jdbcType=INTEGER},
+      tel_sdsc = #{record.telSdsc,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.china.mybootstrap.entity.Usr">
+    update usr
+    <set>
+      <if test="lgnIdSdsc != null">
+        lgn_id_sdsc = #{lgnIdSdsc,jdbcType=VARCHAR},
+      </if>
+      <if test="usrTpEnum != null">
+        usr_tp_enum = #{usrTpEnum,jdbcType=VARCHAR},
+      </if>
+      <if test="usrStEnum != null">
+        usr_st_enum = #{usrStEnum,jdbcType=VARCHAR},
+      </if>
+      <if test="pswdDesc != null">
+        pswd_desc = #{pswdDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTmst != null">
+        crt_tmst = #{crtTmst,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUsrId != null">
+        crt_usr_id = #{crtUsrId,jdbcType=INTEGER},
+      </if>
+      <if test="updTmst != null">
+        upd_tmst = #{updTmst,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updUsrId != null">
+        upd_usr_id = #{updUsrId,jdbcType=INTEGER},
+      </if>
+      <if test="telSdsc != null">
+        tel_sdsc = #{telSdsc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where usr_id = #{usrId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.china.mybootstrap.entity.Usr">
+    update usr
+    set lgn_id_sdsc = #{lgnIdSdsc,jdbcType=VARCHAR},
+      usr_tp_enum = #{usrTpEnum,jdbcType=VARCHAR},
+      usr_st_enum = #{usrStEnum,jdbcType=VARCHAR},
+      pswd_desc = #{pswdDesc,jdbcType=VARCHAR},
+      crt_tmst = #{crtTmst,jdbcType=TIMESTAMP},
+      crt_usr_id = #{crtUsrId,jdbcType=INTEGER},
+      upd_tmst = #{updTmst,jdbcType=TIMESTAMP},
+      upd_usr_id = #{updUsrId,jdbcType=INTEGER},
+      tel_sdsc = #{telSdsc,jdbcType=VARCHAR}
+    where usr_id = #{usrId,jdbcType=INTEGER}
+  </update>
+</mapper>
